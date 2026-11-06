@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Šaha Studija — šaha komplekti spēlei, dāvanai un interjeram.">
+<title>Šaha Studija</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
+:root{--bg:#101a17;--panel:#172520;--gold:#c9a96e;--cream:#f1eadc;--muted:#a8b0a8;--line:rgba(241,234,220,.14)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;line-height:1.6}button,input,select,textarea{font:inherit}a{color:inherit;text-decoration:none}
+header{height:80px;padding:0 7%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:10}
+.logo{font-size:15px;font-weight:700;letter-spacing:2px}.logo b{color:var(--gold);font-size:24px;margin-right:8px}
+nav{display:flex;gap:34px}nav a{font-size:13px;color:var(--muted);cursor:pointer}nav a:hover,nav a.active{color:var(--gold)}
+.menu{display:none;background:none;border:0;color:var(--cream);font-size:25px}
+.page{display:none}.page.active{display:block}
+.hero{min-height:620px;padding:75px 8%;display:grid;grid-template-columns:1fr 1fr;gap:5%;align-items:center}
+.eyebrow{font-size:10px;letter-spacing:3px;color:var(--gold);font-weight:700;margin:0 0 20px}
+h1{font:600 clamp(52px,6.5vw,84px)/1.05 'Playfair Display',serif;letter-spacing:-2px;margin:0 0 25px}h1 em,h2 em{color:var(--gold);font-weight:500}
+.hero-copy{max-width:490px;color:var(--muted);font-size:15px;line-height:1.9}
+.actions{display:flex;gap:24px;align-items:center;margin-top:32px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:20px;padding:14px 21px;background:var(--gold);color:#18211c;border:1px solid var(--gold);font-size:12px;font-weight:700;cursor:pointer;transition:.2s}.btn:hover{background:#dfc18a;transform:translateY(-2px)}
+.link{font-size:12px;border-bottom:1px solid var(--gold);padding-bottom:5px}
+.art{height:440px;display:grid;place-items:center;position:relative}.board{width:min(360px,85%);aspect-ratio:1;position:relative;transform:rotate(-8deg);border:12px solid #3a3024;box-shadow:0 30px 65px #050907;background:conic-gradient(#d5c39f 25%,#68543a 0 50%,#d5c39f 0 75%,#68543a 0);background-size:25% 25%}
+.piece{position:absolute;font-family:Georgia,serif;text-shadow:2px 7px 5px #17110a}.king{font-size:105px;left:38%;top:10%;color:#f4e6c8}.knight{font-size:85px;left:8%;top:44%;color:#292d27;text-shadow:2px 5px 5px #c3a87b}.pawn{font-size:75px;right:12%;bottom:6%;color:#f4e6c8}
+.art:before{content:"";position:absolute;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,.18),transparent 70%)}
+.section{padding:85px 10%;border-top:1px solid var(--line)}.intro{display:grid;grid-template-columns:1fr 1fr;gap:10%;align-items:center}.intro h2,.cta h2{font:500 46px/1.15 'Playfair Display',serif;margin:0}.intro p,.muted{color:var(--muted);font-size:14px;line-height:1.9}
+.features{background:var(--panel);display:grid;grid-template-columns:repeat(3,1fr);gap:7%;padding:55px 10%;border-block:1px solid var(--line)}.feature .symbol{font-size:24px;color:var(--gold)}.feature h3{font:500 20px 'Playfair Display',serif;margin:12px 0 5px}.feature p{font-size:12px;color:var(--muted)}
+.cta{display:flex;align-items:center;justify-content:space-between;gap:25px}
+.heading{text-align:center;padding:75px 20px 45px}.heading h1{font-size:clamp(45px,6vw,68px);margin-bottom:15px}.heading>p:last-child{color:var(--muted);font-size:14px}
+.products{padding:0 8% 65px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{background:var(--panel);padding:14px;border:1px solid var(--line);transition:.2s}.card:hover{transform:translateY(-5px);border-color:var(--gold)}
+.product-art{height:205px;display:grid;place-items:center;position:relative;background:radial-gradient(circle at 50% 40%,#6d5537,#2b3027 70%);overflow:hidden}.product-art.gold{background:radial-gradient(circle at 50% 40%,#8b7046,#30352a 70%)}.product-art.green{background:radial-gradient(circle at 50% 40%,#5c7057,#29372e 70%)}
+.product-art span:first-child{font:120px Georgia;color:#ead8b5;text-shadow:4px 12px 12px #17130d}.tag{position:absolute;top:12px;left:12px;background:#101a17cc;padding:6px 9px;font-size:8px;letter-spacing:2px}
+.product-title{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:18px 4px 8px}.product-title h2{font:500 24px 'Playfair Display',serif;margin:0}.price{color:var(--gold);font-weight:700}.card p,.card ul{color:var(--muted);font-size:11px}.card ul{line-height:2;padding-left:20px;margin:12px 4px 18px}.card .btn{width:100%;background:#29382f;color:var(--cream);border-color:#29382f}.card .btn:hover{background:var(--gold);color:var(--bg)}
+.notice{padding:0 8% 45px;color:var(--muted);font-size:10px}.mini-cta{text-align:center;background:var(--panel);padding:55px 20px}.mini-cta h2{font:500 30px 'Playfair Display',serif;margin:0 0 8px}.mini-cta p{color:var(--muted);font-size:13px;margin-bottom:22px}
+.contact-layout{padding:0 10% 90px;display:grid;grid-template-columns:1fr 1fr;gap:10%}.contact-layout h2{font:500 36px/1.2 'Playfair Display',serif}.contact-info{color:var(--muted);font-size:13px;line-height:1.9}.detail{margin-top:23px}.detail small{display:block;color:var(--gold);letter-spacing:2px;font-size:9px}.detail strong{color:var(--cream);font-weight:500}
+form{background:var(--panel);padding:28px;border:1px solid var(--line);display:flex;flex-direction:column}label{font-size:11px;margin:10px 0 6px}input,select,textarea{width:100%;padding:12px;background:#101a17;border:1px solid var(--line);color:var(--cream);font-size:12px;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--gold)}textarea{resize:vertical}form button{margin-top:20px}.form-note{font-size:10px;color:var(--muted);line-height:1.6}
+footer{border-top:1px solid var(--line);padding:25px 7%;display:flex;justify-content:space-between;align-items:center;gap:18px;color:var(--muted);font-size:10px}footer a:hover{color:var(--gold)}
+@media(max-width:800px){.hero{grid-template-columns:1fr;padding-top:55px}.art{height:350px}.products{grid-template-columns:1fr 1fr}.contact-layout{gap:5%}.section{padding:65px 7%}}
+@media(max-width:580px){header{height:70px;padding:0 6%}.menu{display:block}nav{display:none;position:absolute;top:69px;left:0;right:0;background:var(--panel);padding:20px 6%;flex-direction:column;gap:18px;border-bottom:1px solid var(--line)}nav.open{display:flex}.hero{padding:50px 7% 35px;gap:0}.hero h1{font-size:57px}.art{height:310px}.board{width:260px}.king{font-size:80px}.knight{font-size:65px}.pawn{font-size:55px}.actions{align-items:flex-start;flex-direction:column}.intro{grid-template-columns:1fr;gap:15px}.intro h2,.cta h2{font-size:39px}.features{grid-template-columns:1fr;gap:24px;padding:40px 7%}.cta{align-items:flex-start;flex-direction:column}.heading{padding:60px 7% 35px}.products{grid-template-columns:1fr;padding:0 7% 45px}.product-art{height:220px}.contact-layout{grid-template-columns:1fr;gap:35px;padding:0 7% 65px}.contact-layout h2{font-size:33px}form{padding:21px}footer{padding:23px 7%;flex-wrap:wrap}footer small{width:100%}}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="#sakums" onclick="showPage('sakums')"><b>♞</b> ŠAHA STUDIJA</a>
+  <button class="menu" id="menuBtn" aria-label="Atvērt izvēlni" aria-expanded="false">☰</button>
+  <nav id="nav">
+    <a href="#sakums" data-page="sakums" class="active">Sākums</a>
+    <a href="#produkti" data-page="produkti">Produkti</a>
+    <a href="#kontakti" data-page="kontakti">Kontakti</a>
+  </nav>
+</header>
+
+<main>
+<section class="page active" id="sakums">
+  <div class="hero">
+    <div>
+      <p class="eyebrow">STRATĒĢIJA. STILS. KVALITĀTE.</p>
+      <h1>Katrs gājiens<br><em>ir īpašs.</em></h1>
+      <p class="hero-copy">Atklāj šaha komplektus, kuros satiekas pārdomāts dizains, spēles prieks un elegance. Izvēlies komplektu sev vai īpašai dāvanai.</p>
+      <div class="actions"><a class="btn" href="#produkti" onclick="showPage('produkti')">Apskatīt produktus →</a><a class="link" href="#kontakti" onclick="showPage('kontakti')">Sazināties ar mums</a></div>
+    </div>
+    <div class="art"><div class="board"><span class="piece king">♚</span><span class="piece knight">♞</span><span class="piece pawn">♟</span></div></div>
+  </div>
+  <section class="section intro">
+    <div><p class="eyebrow">MŪSU IDEJA</p><h2>Vairāk nekā<br><em>galdiņš.</em></h2></div>
+    <div><p>Šahs ir spēle, kas apvieno paaudzes, attīsta domāšanu un rada vērtīgus kopā pavadītus brīžus. Mūsu mērķis ir piedāvāt šaha komplektus, kas ir gan praktiski spēlei, gan skaisti kā interjera elements.</p><a class="link" href="#produkti" onclick="showPage('produkti')">Atrodi savu komplektu ↗</a></div>
+  </section>
+  <section class="features">
+    <div class="feature"><span class="symbol">✦</span><h3>Pārdomāts dizains</h3><p>Elegants izskats, kas iederas dažādos interjeros.</p></div>
+    <div class="feature"><span class="symbol">♜</span><h3>Spēlei un dāvanai</h3><p>Izvēle gan šaha cienītājiem, gan īpašiem notikumiem.</p></div>
+    <div class="feature"><span class="symbol">⌖</span><h3>Viegla izvēle</h3><p>Skaidra informācija par komplektāciju un variantiem.</p></div>
+  </section>
+  <section class="section cta"><div><p class="eyebrow">ATRODI SAVU NĀKAMO GĀJIENU</p><h2>Labs gājiens sākas<br>ar <em>izvēli.</em></h2></div><a class="btn" href="#produkti" onclick="showPage('produkti')">Apskatīt kolekciju →</a></section>
+</section>
+
+<section class="page" id="produkti">
+  <div class="heading"><p class="eyebrow">MŪSU KOLEKCIJA</p><h1>Izvēlies savu<br><em>šaha komplektu.</em></h1><p>Trīs idejas dažādiem spēlētājiem, notikumiem un vēlmēm.</p></div>
+  <div class="products">
+    <article class="card"><div class="product-art"><span>♜</span><small class="tag">IKDIENAS SPĒLE</small></div><div class="product-title"><h2>Klasiskais</h2><strong class="price">49 €</strong></div><p>Klasisks komplekts nesteidzīgām spēlēm mājās.</p><ul><li>Šaha galdiņš</li><li>32 spēles figūras</li><li>Standarta izmērs</li></ul><button class="btn" onclick="chooseProduct('Klasiskais')">Interesē šis komplekts →</button></article>
+    <article class="card"><div class="product-art gold"><span>♛</span><small class="tag">IZSMALCINĀTA IZVĒLE</small></div><div class="product-title"><h2>Augstākās klases</h2><strong class="price">89 €</strong></div><p>Elegants komplekts īpašiem brīžiem un interjeram.</p><ul><li>Izsmalcināta dizaina galdiņš</li><li>32 dekoratīvas figūras</li><li>Dāvanu iepakojums</li></ul><button class="btn" onclick="chooseProduct('Augstākās klases')">Interesē šis komplekts →</button></article>
+    <article class="card"><div class="product-art green"><span>♞</span><small class="tag">ĢIMENEI</small></div><div class="product-title"><h2>Ģimenes</h2><strong class="price">59 €</strong></div><p>Vienkāršs un draudzīgs sākums šaha apgūšanai.</p><ul><li>Izturīgs spēles komplekts</li><li>32 viegli atpazīstamas figūras</li><li>Spēles noteikumu pamācība</li></ul><button class="btn" onclick="chooseProduct('Ģimenes')">Interesē šis komplekts →</button></article>
+  </div>
+  <p class="notice">Norādītās cenas un komplektu apraksti ir demonstrācijas piemēri mācību projektam. Reāls pasūtījums netiek apstrādāts.</p>
+  <section class="mini-cta"><h2>Neesi pārliecināts par izvēli?</h2><p class="muted">Uzraksti mums — palīdzēsim atrast piemērotāko komplektu.</p><button class="btn" onclick="showPage('kontakti')">Uzdot jautājumu →</button></section>
+</section>
+
+<section class="page" id="kontakti">
+  <div class="heading"><p class="eyebrow">SAZINĀSIMIES</p><h1>Tev ir jautājums?<br><em>Mēs klausāmies.</em></h1><p>Aizpildi formu, un tavā e-pasta programmā tiks sagatavots ziņojums.</p></div>
+  <div class="contact-layout">
+    <div><p class="eyebrow">KONTAKTINFORMĀCIJA</p><h2>Parunāsim par<br>tavu nākamo komplektu.</h2><p class="contact-info">Jautājumi par materiāliem, izmēriem, komplektāciju vai dāvanu noformējumu? Raksti mums.</p>
+      <div class="detail"><small>E-PASTS</small><strong>sveiki@sahastudija.lv</strong></div>
+      <div class="detail"><small>ATRAŠANĀS VIETA</small><strong>Rīga, Latvija</strong></div>
+      <div class="detail"><small>ATBILDES LAIKS</small><strong>Parasti 1–2 darba dienu laikā</strong></div>
+    </div>
+    <form id="contactForm">
+      <label for="name">Tavs vārds</label><input id="name" name="name" type="text" placeholder="Vārds" required>
+      <label for="email">E-pasta adrese</label><input id="email" name="email" type="email" placeholder="vards@epasts.lv" required>
+      <label for="subject">Par ko vēlies sazināties?</label><select id="subject" name="subject"><option>Vispārīgs jautājums</option><option>Klasiskais komplekts</option><option>Augstākās klases komplekts</option><option>Ģimenes komplekts</option><option>Dāvanu iepakojums</option></select>
+      <label for="message">Ziņojums</label><textarea id="message" name="message" rows="5" placeholder="Uzraksti savu jautājumu..." required></textarea>
+      <button class="btn" type="submit">Sagatavot e-pastu →</button>
+      <p class="form-note" id="formNote">Pēc nospiešanas atvērsies tava e-pasta programma ar sagatavotu ziņojumu.</p>
+    </form>
+  </div>
+</section>
+</main>
+<footer><a class="logo" href="#sakums" onclick="showPage('sakums')"><b>♞</b> ŠAHA STUDIJA</a><small>© <span id="year"></span> Šaha Studija. Mācību projekts.</small><a href="#kontakti" onclick="showPage('kontakti')">Sazināties ar mums</a></footer>
+
+<script>
+const pages = ["sakums","produkti","kontakti"];
+function showPage(page) {
+  if (!pages.includes(page)) page = "sakums";
+  document.querySelectorAll(".page").forEach(el => el.classList.toggle("active", el.id === page));
+  document.querySelectorAll("nav a").forEach(el => el.classList.toggle("active", el.dataset.page === page));
+  document.getElementById("nav").classList.remove("open");
+  document.getElementById("menuBtn").setAttribute("aria-expanded","false");
+  document.getElementById("menuBtn").textContent = "☰";
+  history.replaceState(null,"","#"+page);
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll("nav a").forEach(link => link.addEventListener("click",e=>{e.preventDefault();showPage(link.dataset.page)}));
+document.getElementById("menuBtn").addEventListener("click",()=>{
+  const nav=document.getElementById("nav"), open=nav.classList.toggle("open");
+  document.getElementById("menuBtn").setAttribute("aria-expanded",String(open));
+  document.getElementById("menuBtn").textContent=open?"✕":"☰";
+});
+function chooseProduct(product){
+  showPage("kontakti");
+  const options=[...document.getElementById("subject").options];
+  const found=options.find(o=>o.text.toLowerCase().startsWith(product.toLowerCase()));
+  if(found) document.getElementById("subject").value=found.value;
+}
+document.getElementById("contactForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const form=e.currentTarget;
+  if(!form.reportValidity()) return;
+  const d=new FormData(form);
+  const body=`Vārds: ${d.get("name")}\nE-pasts: ${d.get("email")}\nTēma: ${d.get("subject")}\n\nZiņojums:\n${d.get("message")}`;
+  document.getElementById("formNote").textContent="Tiek atvērta e-pasta programma. Lai nosūtītu ziņojumu, apstiprini to savā e-pasta lietotnē.";
+  window.location.href="mailto:sveiki@sahastudija.lv?subject="+encodeURIComponent("Šaha Studija — "+d.get("subject"))+"&body="+encodeURIComponent(body);
+});
+document.getElementById("year").textContent=new Date().getFullYear();
+const initial=location.hash.replace("#","");
+if(pages.includes(initial)) showPage(initial);
+</script>
+</body>
+</html>
